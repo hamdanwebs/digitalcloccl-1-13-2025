@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #0035bd, #1a1a80);
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    
+    /* Style the clock container */
+    #clk {
+  background: rgba(49, 76, 126, 0.4); /* Changed from 0.9 to 0.4 for 40% transparency */
+  padding: 20px 40px;
+  border-radius: 30px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  position: relative;
+}
+    
+    
+   
+    #Ds{
+      color: #fff;
+      font-size: 90px; /* Increased size for better readability */
+      font-family: 'Courier New', monospace;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    /* Style for the time digits */
+    span {
+      color: #fff;
+      font-size: 90px; /* Increased size for better readability */
+      font-family: 'Courier New', monospace;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    </style>
+    </head>
+    <body>
+      <span id="Ds"></span>
+    <div id="clk" class="clock">
+    <span id="hrs">00</span>
+    <span>:</span>
+    <span id="min">00</span>
+    <span>:</span>
+    <span id="sec">00</span>
+    <span>/</span>
+    <span id="ampm"></span>
+    
+    </div>
+    
+    
+    <!-- Your external script (my.js) will handle clock functionality -->
+    <script>
+ window.onload = function () {
+    var hrs = document.getElementById('hrs');
+    var min = document.getElementById('min');
+    var sec = document.getElementById('sec');
+    var ampm = document.getElementById('ampm');
+    var days = document.getElementById('Ds');
+
+    const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+    setInterval(() => {
+      var current = new Date();
+      let hour = current.getHours();
+      let minute = current.getMinutes();
+      let second = current.getSeconds();
+      let period = "AM";
+      let dayIndex = current.getDay(); // 👈 Yeh ab alag variable hai
+
+      if (hour >= 12) {
+        period = "PM";
+      }
+      if (hour == 0) {
+        hour = 12;
+      } else if (hour > 12) {
+        hour = hour - 12;
+      }
+
+      // Add zero padding
+      hour = hour < 10 ? "0" + hour : hour;
+      minute = minute < 10 ? "0" + minute : minute;
+      second = second < 10 ? "0" + second : second;
+
+      hrs.innerHTML = hour;
+      min.innerHTML = minute;
+      sec.innerHTML = second;
+      ampm.innerHTML = period;
+      days.innerHTML = dayNames[dayIndex]; // 👈 Day name displayed
+    }, 1000);
+  };
+    </script>
+    
+    </body>
+</body>
+</html>
